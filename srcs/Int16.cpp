@@ -39,52 +39,77 @@ std::ostream &				operator<<(std::ostream & o, Int16 const & i)
 
 IOperand const *			Int16::operator+( IOperand const & rhs ) const
 {
-	IOperand				*res;
+	double					rightv = std::stod(rhs.value);
+	double					leftv = std::stod(this->value);
+	double					result;
+	std::ostringstream		strs;
+	eOperandType			type = this->getType();
 
-	res = NULL;
-	(void)rhs;
-
-	return (res);
+	result = leftv + rightv;
+	strs << result;
+	if (type < rhs.getType())
+		type = rhs.getType();
+	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
 
 IOperand const *			Int16::operator-( IOperand const & rhs ) const
 {
-	IOperand				*res;
+	double					rightv = std::stod(rhs.value);
+	double					leftv = std::stod(this->value);
+	double					result;
+	std::ostringstream		strs;
+	eOperandType			type = this->getType();
 
-	res = NULL;
-	(void)rhs;
-
-	return (res);
+	result = leftv - rightv;
+	strs << result;
+	if (type < rhs.getType())
+		type = rhs.getType();
+	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
 
 IOperand const *			Int16::operator*( IOperand const & rhs ) const
 {
-	IOperand				*res;
+	double					rightv = std::stod(rhs.value);
+	double					leftv = std::stod(this->value);
+	double					result;
+	std::ostringstream		strs;
+	eOperandType			type = this->getType();
 
-	res = NULL;
-	(void)rhs;
-
-	return (res);
+	result = leftv * rightv;
+	strs << result;
+	if (type < rhs.getType())
+		type = rhs.getType();
+	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
 
 IOperand const *			Int16::operator/( IOperand const & rhs ) const
 {
-	IOperand				*res;
+	double					rightv = std::stod(rhs.value);
+	double					leftv = std::stod(this->value);
+	double					result;
+	std::ostringstream		strs;
+	eOperandType			type = this->getType();
 
-	res = NULL;
-	(void)rhs;
-
-	return (res);
+	result = leftv / rightv;
+	strs << result;
+	if (type < rhs.getType())
+		type = rhs.getType();
+	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
 
 IOperand const *			Int16::operator%( IOperand const & rhs ) const
 {
-	IOperand				*res;
+	double					rightv = std::stod(rhs.value);
+	double					leftv = std::stod(this->value);
+	double					result;
+	std::ostringstream		strs;
+	eOperandType			type = this->getType();
 
-	res = NULL;
-	(void)rhs;
-
-	return (res);
+	result = static_cast<long long>(leftv) % static_cast<long long>(rightv);
+	strs << result;
+	if (type < rhs.getType())
+		type = rhs.getType();
+	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
 
 // ###############################################################

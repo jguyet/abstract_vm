@@ -23,6 +23,7 @@
 # include <exception>
 # include <stack>
 # include <memory>
+# include <sstream>
 // #################################################
 
 // Enum of Operande types ##########################
