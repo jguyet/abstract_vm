@@ -40,7 +40,12 @@ enum eOperandType
 
 // Class includes ##################################
 #include "IOperand.hpp"
+#include "Float.hpp"
+#include "Double.hpp"
 #include "Int8.hpp"
+#include "Int16.hpp"
+#include "Int32.hpp"
+#include "Int64.hpp"
 #include "OperandFactory.hpp"
 #include "AbstractVmHandler.hpp"
 // #################################################

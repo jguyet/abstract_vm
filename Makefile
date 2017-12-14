@@ -34,7 +34,12 @@ INCDIR		=	srcs/
 
 SRCSPROG1	=	\
 				srcs/main.cpp																\
+				srcs/Float.cpp																\
+				srcs/Double.cpp																\
 				srcs/Int8.cpp																\
+				srcs/Int16.cpp																\
+				srcs/Int32.cpp																\
+				srcs/Int64.cpp																\
 				srcs/OperandFactory.cpp														\
 				srcs/AbstractVmHandler.cpp
 

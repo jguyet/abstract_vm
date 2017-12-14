@@ -18,6 +18,7 @@ OperandFactory::OperandFactory ( void )
 	this->methodsFactory[t_Int8] = &OperandFactory::createInt8;
 	this->methodsFactory[t_Int16] = &OperandFactory::createInt16;
 	this->methodsFactory[t_Int32] = &OperandFactory::createInt32;
+	this->methodsFactory[t_Int64] = &OperandFactory::createInt64;
 	this->methodsFactory[t_Float] = &OperandFactory::createFloat;
 	this->methodsFactory[t_Double] = &OperandFactory::createDouble;
 	return ;
@@ -29,7 +30,7 @@ OperandFactory::OperandFactory ( OperandFactory const & src )
 	return ;
 }
 
-OperandFactory &				OperandFactory::operator=( OperandFactory const & rhs )
+OperandFactory &		OperandFactory::operator=( OperandFactory const & rhs )
 {
 	if (this != &rhs)
 	{
@@ -73,26 +74,43 @@ IOperand const * 		OperandFactory::createInt8( std::string const & value ) const
 
 IOperand const * 		OperandFactory::createInt16( std::string const & value ) const
 {
-	(void)value;
-	return (NULL);
+	Int16		*operand = new Int16();
+
+	operand->value = value;
+	return(operand);
 }
 
 IOperand const * 		OperandFactory::createInt32( std::string const & value ) const
 {
-	(void)value;
-	return (NULL);
+	Int32		*operand = new Int32();
+
+	operand->value = value;
+	return(operand);
 }
+
+IOperand const * 		OperandFactory::createInt64( std::string const & value ) const
+{
+	Int64		*operand = new Int64();
+
+	operand->value = value;
+	return(operand);
+}
+
 
 IOperand const * 		OperandFactory::createFloat( std::string const & value ) const
 {
-	(void)value;
-	return (NULL);
+	Float		*operand = new Float();
+
+	operand->value = value;
+	return(operand);
 }
 
 IOperand const * 		OperandFactory::createDouble( std::string const & value ) const
 {
-	(void)value;
-	return (NULL);
+	Double		*operand = new Double();
+
+	operand->value = value;
+	return(operand);
 }
 
 // ###############################################################

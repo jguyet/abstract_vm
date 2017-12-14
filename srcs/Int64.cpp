@@ -2,18 +2,18 @@
 
 // CANONICAL #####################################################
 
-Int8::Int8 ( void )
+Int64::Int64 ( void )
 {
 	return ;
 }
 
-Int8::Int8 ( Int8 const & src )
+Int64::Int64 ( Int64 const & src )
 {
 	*this = src;
 	return ;
 }
 
-Int8 &						Int8::operator=( Int8 const & rhs )
+Int64 &						Int64::operator=( Int64 const & rhs )
 {
 	if (this != &rhs)
 	{
@@ -22,12 +22,12 @@ Int8 &						Int8::operator=( Int8 const & rhs )
 	return (*this);
 }
 
-Int8::~Int8 ( void )
+Int64::~Int64 ( void )
 {
 	return ;
 }
 
-std::ostream &				operator<<(std::ostream & o, Int8 const & i)
+std::ostream &				operator<<(std::ostream & o, Int64 const & i)
 {
 	(void)i;
 	return (o);
@@ -37,7 +37,7 @@ std::ostream &				operator<<(std::ostream & o, Int8 const & i)
 
 // OPERATORS #####################################################
 
-IOperand const *			Int8::operator+( IOperand const & rhs ) const
+IOperand const *			Int64::operator+( IOperand const & rhs ) const
 {
 	IOperand				*res;
 
@@ -47,7 +47,7 @@ IOperand const *			Int8::operator+( IOperand const & rhs ) const
 	return (res);
 }
 
-IOperand const *			Int8::operator-( IOperand const & rhs ) const
+IOperand const *			Int64::operator-( IOperand const & rhs ) const
 {
 	IOperand				*res;
 
@@ -57,7 +57,7 @@ IOperand const *			Int8::operator-( IOperand const & rhs ) const
 	return (res);
 }
 
-IOperand const *			Int8::operator*( IOperand const & rhs ) const
+IOperand const *			Int64::operator*( IOperand const & rhs ) const
 {
 	IOperand				*res;
 
@@ -67,7 +67,7 @@ IOperand const *			Int8::operator*( IOperand const & rhs ) const
 	return (res);
 }
 
-IOperand const *			Int8::operator/( IOperand const & rhs ) const
+IOperand const *			Int64::operator/( IOperand const & rhs ) const
 {
 	IOperand				*res;
 
@@ -77,7 +77,7 @@ IOperand const *			Int8::operator/( IOperand const & rhs ) const
 	return (res);
 }
 
-IOperand const *			Int8::operator%( IOperand const & rhs ) const
+IOperand const *			Int64::operator%( IOperand const & rhs ) const
 {
 	IOperand				*res;
 
@@ -91,18 +91,18 @@ IOperand const *			Int8::operator%( IOperand const & rhs ) const
 
 // PUBLIC METHOD #################################################
 
-int 						Int8::getPrecision( void ) const
+int 						Int64::getPrecision( void ) const
 {
-	//8bits = 1 octet
-	return (1);
+	//64bits = 8 octets
+	return (8);
 }
 
-eOperandType 				Int8::getType( void ) const
+eOperandType 				Int64::getType( void ) const
 {
-	return (t_Int8);
+	return (t_Int64);
 }
 
-std::string const &			Int8::toString( void ) const
+std::string const &			Int64::toString( void ) const
 {
 	return (this->value);
 }

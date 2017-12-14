@@ -4,7 +4,7 @@
 
 AbstractVmHandler AbstractVmHandler::m_instance = AbstractVmHandler();
 
-AbstractVmHandler &		AbstractVmHandler::Singleton( void )
+AbstractVmHandler &			AbstractVmHandler::Singleton( void )
 {
 	return (m_instance);
 }
@@ -24,7 +24,7 @@ AbstractVmHandler::AbstractVmHandler ( AbstractVmHandler const & src )
 	return ;
 }
 
-AbstractVmHandler &				AbstractVmHandler::operator=( AbstractVmHandler const & rhs )
+AbstractVmHandler &			AbstractVmHandler::operator=( AbstractVmHandler const & rhs )
 {
 	if (this != &rhs)
 	{

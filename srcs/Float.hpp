@@ -3,22 +3,22 @@
 //																//
 // ------------------------------------------------------------	//
 
-#ifndef INT8_HPP
-# define INT8_HPP
+#ifndef FLOAT_HPP
+# define FLOAT_HPP
 
 #include "AbstractVM.hpp"
 
-class Int8 : public IOperand
+class Float : public IOperand
 {
 	public:
 
 		// Default complaient form #########################
-								Int8( void );
-								Int8( Int8 const & src );
-		virtual					~Int8( void );
+								Float( void );
+								Float( Float const & src );
+		virtual					~Float( void );
 
-		Int8 &					operator=( Int8 const & rhs );
-		friend std::ostream &	operator<<(std::ostream & o, Int8 const & i);
+		Float &					operator=( Float const & rhs );
+		friend std::ostream &	operator<<(std::ostream & o, Float const & i);
 		// #################################################
 
 		// Public methods ##################################

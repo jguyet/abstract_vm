@@ -36,6 +36,7 @@ class OperandFactory
 		IOperand const * 		createInt8( std::string const & value ) const;
 		IOperand const * 		createInt16( std::string const & value ) const;
 		IOperand const * 		createInt32( std::string const & value ) const;
+		IOperand const * 		createInt64( std::string const & value ) const;
 		IOperand const * 		createFloat( std::string const & value ) const;
 		IOperand const * 		createDouble( std::string const & value ) const;
 		// #################################################
@@ -45,7 +46,7 @@ class OperandFactory
 		// #################################################
 
 		// list of methods pointers ########################
-		OperandMethodsFactory		methodsFactory[eOperandType_max];
+		OperandMethodsFactory	methodsFactory[eOperandType_max];
 		// #################################################
 };
 
