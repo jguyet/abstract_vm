@@ -41,7 +41,9 @@ SRCSPROG1	=	\
 				srcs/Int32.cpp																\
 				srcs/Int64.cpp																\
 				srcs/OperandFactory.cpp														\
-				srcs/AbstractVmHandler.cpp
+				srcs/AbstractVmHandler.cpp													\
+				srcs/AbstractVmParser.cpp													\
+				srcs/strtoupper.cpp
 
 
 OBJSPROG1	=	$(addprefix $(OBJDIR), $(SRCSPROG1:.$(PROJECT_TYPE)=.o))

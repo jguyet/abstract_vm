@@ -29,7 +29,7 @@ Int32::~Int32 ( void )
 
 std::ostream &				operator<<(std::ostream & o, Int32 const & i)
 {
-	(void)i;
+	o << i.value;
 	return (o);
 }
 
@@ -105,7 +105,7 @@ IOperand const *			Int32::operator%( IOperand const & rhs ) const
 	std::ostringstream		strs;
 	eOperandType			type = this->getType();
 
-	result = static_cast<long long>(leftv) % static_cast<long long>(rightv);
+	result = fmod(leftv, rightv);
 	strs << result;
 	if (type < rhs.getType())
 		type = rhs.getType();

@@ -25,10 +25,38 @@ class AbstractVmHandler
 		// #################################################
 
 		// Public methods ##################################
+		void							handleVmOperation(std::string const & cmd, std::string const & value);
 		// #################################################
 	private:
 		// Static Singleton var ############################
 		static AbstractVmHandler		m_instance;
+		// #################################################
+
+		// Private methods #################################
+		void							handleOperationPush(std::string const & value);
+		void							handleOperationPop(std::string const & value);
+		void							handleOperationDump(std::string const & value);
+		void							handleOperationAssert(std::string const & value);
+		void							handleOperationAdd(std::string const & value);
+		void							handleOperationSub(std::string const & value);
+		void							handleOperationMul(std::string const & value);
+		void							handleOperationDiv(std::string const & value);
+		void							handleOperationMod(std::string const & value);
+		void							handleOperationPrint(std::string const & value);
+		void							handleOperationExit(std::string const & value);
+		// #################################################
+
+		// typedef of methods handler pointers #############
+		typedef void (AbstractVmHandler::*VmOperationMethods)( std::string const & value );
+		// #################################################
+
+		// list of methods handler pointers ################
+		VmOperationMethods							operationsMethods[eVmOperationType_max];
+		// #################################################
+
+		// private vars ###################################
+		std::map<std::string, eVmOperationType>		operationsMapKey;
+		std::list<IOperand const*>					stack;
 		// #################################################
 };
 

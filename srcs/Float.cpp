@@ -29,7 +29,7 @@ Float::~Float ( void )
 
 std::ostream &				operator<<(std::ostream & o, Float const & i)
 {
-	(void)i;
+	o << i.value;
 	return (o);
 }
 
@@ -105,7 +105,7 @@ IOperand const *			Float::operator%( IOperand const & rhs ) const
 	std::ostringstream		strs;
 	eOperandType			type = this->getType();
 
-	result = static_cast<long long>(leftv) % static_cast<long long>(rightv);
+	result = fmod(leftv, rightv);
 	strs << result;
 	if (type < rhs.getType())
 		type = rhs.getType();

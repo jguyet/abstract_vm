@@ -15,15 +15,19 @@
 
 // External Libraries ##############################
 # include <unistd.h>
+# include <algorithm>
+# include <limits>
 # include <string>
 # include <string.h>
 # include <iostream>
 # include <fstream>
 # include <vector>
 # include <exception>
-# include <stack>
+# include <list>
 # include <memory>
 # include <sstream>
+# include <map>
+# include <cmath>
 // #################################################
 
 // Enum of Operande types ##########################
@@ -39,6 +43,26 @@ enum eOperandType
 };
 // #################################################
 
+// Enum of VM Operation types ######################
+enum eVmOperationType
+{
+	VmOperation_push = 0,
+	VmOperation_pop = 1,
+	VmOperation_dump = 2,
+	VmOperation_assert = 3,
+	VmOperation_add = 4,
+	VmOperation_sub = 5,
+	VmOperation_mul = 6,
+	VmOperation_div = 7,
+	VmOperation_mod = 8,
+	VmOperation_print = 9,
+	VmOperation_exit = 10,
+	eVmOperationType_max
+};
+// #################################################
+
+std::string		strtoupper(std::string str);
+
 // Class includes ##################################
 #include "IOperand.hpp"
 #include "Float.hpp"
@@ -47,8 +71,10 @@ enum eOperandType
 #include "Int16.hpp"
 #include "Int32.hpp"
 #include "Int64.hpp"
+#include "AbstractVmExceptions.hpp"
 #include "OperandFactory.hpp"
 #include "AbstractVmHandler.hpp"
+#include "AbstractVmParser.hpp"
 // #################################################
 
 #endif
