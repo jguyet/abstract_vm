@@ -56,7 +56,8 @@ class AbstractVmHandler
 
 		// private vars ###################################
 		std::map<std::string, eVmOperationType>		operationsMapKey;
-		std::list<IOperand const*>					stack;
+		std::map<std::string, eOperandType>			pushOperationsMapKey;
+		std::stack<IOperand const*>					stack;
 		// #################################################
 };
 

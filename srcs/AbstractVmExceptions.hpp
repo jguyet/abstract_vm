@@ -52,3 +52,99 @@ inline void callLimitExceededException(const std::string aMessage, const char* f
    throw LimitExceededException(stream.str());
 }
 // #############################################################################
+
+// UnknowOperandException ######################################################
+struct UnknowOperandException: public std::runtime_error
+{
+	UnknowOperandException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define UNKNOW_OPERAND_EXCEPTION(aMessage) callUnknowOperandException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callUnknowOperandException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.UnknowOperandException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw UnknowOperandException(stream.str());
+}
+// #############################################################################
+
+// SyntaxException #############################################################
+struct SyntaxException: public std::runtime_error
+{
+	SyntaxException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define SYNTAX_EXCEPTION(aMessage) callSyntaxException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callSyntaxException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.SyntaxException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw SyntaxException(stream.str());
+}
+// #############################################################################
+
+// NoPrintableOperandException #################################################
+struct NoPrintableOperandException: public std::runtime_error
+{
+	NoPrintableOperandException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define NO_PRINTABLE_OPERAND_EXCEPTION(aMessage) callNoPrintableOperandException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callNoPrintableOperandException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.NoPrintableOperandException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw NoPrintableOperandException(stream.str());
+}
+// #############################################################################
+
+// NoExitInstructionException ##################################################
+struct NoExitInstructionException: public std::runtime_error
+{
+	NoExitInstructionException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define NO_EXIT_INSTRUCTION_EXCEPTION(aMessage) callNoExitInstructionException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callNoExitInstructionException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.NoExitInstructionException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw NoExitInstructionException(stream.str());
+}
+// #############################################################################
+
+// InvalidAssertOperationException ##################################################
+struct InvalidAssertOperationException: public std::runtime_error
+{
+	InvalidAssertOperationException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define INVALID_ASSERT_EXCEPTION(aMessage) callInvalidAssertOperationException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callInvalidAssertOperationException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.InvalidAssertOperationException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw InvalidAssertOperationException(stream.str());
+}
+// #############################################################################
+
+// UnknowVmOperationException ##################################################
+struct UnknowVmOperationException: public std::runtime_error
+{
+	UnknowVmOperationException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define UNKNOW_VM_OPERATION_EXCEPTION(aMessage) callUnknowVmOperationException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callUnknowVmOperationException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.UnknowVmOperationException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw UnknowVmOperationException(stream.str());
+}
+// #############################################################################

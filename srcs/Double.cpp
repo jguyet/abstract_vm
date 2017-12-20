@@ -47,7 +47,7 @@ IOperand const *			Double::operator+( IOperand const & rhs ) const
 
 	result = leftv + rightv;
 	strs << result;
-	if (type < rhs.getType())
+	if (this->getPrecision() < rhs.getPrecision())
 		type = rhs.getType();
 	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
@@ -62,7 +62,7 @@ IOperand const *			Double::operator-( IOperand const & rhs ) const
 
 	result = leftv - rightv;
 	strs << result;
-	if (type < rhs.getType())
+	if (this->getPrecision() < rhs.getPrecision())
 		type = rhs.getType();
 	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
@@ -77,7 +77,7 @@ IOperand const *			Double::operator*( IOperand const & rhs ) const
 
 	result = leftv * rightv;
 	strs << result;
-	if (type < rhs.getType())
+	if (this->getPrecision() < rhs.getPrecision())
 		type = rhs.getType();
 	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
@@ -92,7 +92,7 @@ IOperand const *			Double::operator/( IOperand const & rhs ) const
 
 	result = leftv / rightv;
 	strs << result;
-	if (type < rhs.getType())
+	if (this->getPrecision() < rhs.getPrecision())
 		type = rhs.getType();
 	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }
@@ -107,7 +107,7 @@ IOperand const *			Double::operator%( IOperand const & rhs ) const
 
 	result = fmod(leftv, rightv);
 	strs << result;
-	if (type < rhs.getType())
+	if (this->getPrecision() < rhs.getPrecision())
 		type = rhs.getType();
 	return (OperandFactory::Singleton().createOperand(type, strs.str()));
 }

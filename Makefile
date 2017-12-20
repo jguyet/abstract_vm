@@ -43,6 +43,7 @@ SRCSPROG1	=	\
 				srcs/OperandFactory.cpp														\
 				srcs/AbstractVmHandler.cpp													\
 				srcs/AbstractVmParser.cpp													\
+				srcs/split.cpp																\
 				srcs/strtoupper.cpp
 
 

@@ -20,8 +20,10 @@ class AbstractVmParser
 		AbstractVmParser &					operator=( AbstractVmParser const & rhs );
 		friend std::ostream &				operator<<(std::ostream & o, AbstractVmParser const & i);
 		// #################################################
+
+		void								parseCmds( void );
 	private:
-		//std::string const &					cmds;
+		std::string							cmds;
 };
 
 #endif

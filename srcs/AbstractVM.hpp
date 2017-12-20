@@ -24,10 +24,12 @@
 # include <vector>
 # include <exception>
 # include <list>
+# include <stack>
 # include <memory>
 # include <sstream>
 # include <map>
 # include <cmath>
+# include <regex>
 // #################################################
 
 // Enum of Operande types ##########################
@@ -61,7 +63,8 @@ enum eVmOperationType
 };
 // #################################################
 
-std::string		strtoupper(std::string str);
+std::string					strtoupper(std::string str);
+std::vector<std::string>	split(const std::string &s, char delim);
 
 // Class includes ##################################
 #include "IOperand.hpp"
