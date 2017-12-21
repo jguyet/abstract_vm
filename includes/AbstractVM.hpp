@@ -59,12 +59,17 @@ enum eVmOperationType
 	VmOperation_mod = 8,
 	VmOperation_print = 9,
 	VmOperation_exit = 10,
+	VmOperation_mov = 11,
+	VmOperation_copy = 12,
+	VmOperation_inc = 13,
+	VmOperation_dec = 14,
 	eVmOperationType_max
 };
 // #################################################
 
 std::string					strtoupper(std::string str);
 std::vector<std::string>	split(const std::string &s, char delim);
+bool						is_numeric(const std::string& s);
 
 // Class includes ##################################
 #include "IOperand.hpp"

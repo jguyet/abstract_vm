@@ -67,44 +67,52 @@ IOperand const * 		OperandFactory::createOperand( eOperandType type, std::string
 IOperand const * 		OperandFactory::createInt8( std::string const & value ) const
 {
 	Int8		*operand = new Int8();
-	double		number = std::stod(value);
+	double		number = (int8_t)std::stod(value);
 
 	if (number < std::numeric_limits<char>::min() || number > std::numeric_limits<char>::max())
 		LIMIT_EXCEEDED_EXCEPTION("Int8 value: " + value);
-	operand->value = value;
+	std::stringstream ss;
+	ss << number;
+	operand->value = ss.str();
 	return(operand);
 }
 
 IOperand const * 		OperandFactory::createInt16( std::string const & value ) const
 {
 	Int16		*operand = new Int16();
-	double		number = std::stod(value);
+	double		number = (int16_t)std::stod(value);
 
 	if (number < std::numeric_limits<short>::min() || number > std::numeric_limits<short>::max())
 		LIMIT_EXCEEDED_EXCEPTION("Int16 value: " + value);
-	operand->value = value;
+	std::stringstream ss;
+	ss << number;
+	operand->value = ss.str();
 	return(operand);
 }
 
 IOperand const * 		OperandFactory::createInt32( std::string const & value ) const
 {
 	Int32		*operand = new Int32();
-	double		number = std::stod(value);
+	double		number = (int32_t)std::stod(value);
 
 	if (number < std::numeric_limits<int>::min() || number > std::numeric_limits<int>::max())
 		LIMIT_EXCEEDED_EXCEPTION("Int32 value: " + value);
-	operand->value = value;
+	std::stringstream ss;
+	ss << number;
+	operand->value = ss.str();
 	return(operand);
 }
 
 IOperand const * 		OperandFactory::createInt64( std::string const & value ) const
 {
 	Int64		*operand = new Int64();
-	double		number = std::stod(value);
+	double		number = (int64_t)std::stod(value);
 
 	if (number < std::numeric_limits<long>::min() || number > std::numeric_limits<long>::max())
 		LIMIT_EXCEEDED_EXCEPTION("Int64 value: " + value);
-	operand->value = value;
+	std::stringstream ss;
+	ss << number;
+	operand->value = ss.str();
 	return(operand);
 }
 
@@ -116,7 +124,9 @@ IOperand const * 		OperandFactory::createFloat( std::string const & value ) cons
 
 	if (number < std::numeric_limits<float>::min() || number > std::numeric_limits<float>::max())
 		LIMIT_EXCEEDED_EXCEPTION("Float value: " + value);
-	operand->value = value;
+	std::stringstream ss;
+	ss << number;
+	operand->value = ss.str();
 	return(operand);
 }
 
@@ -127,7 +137,9 @@ IOperand const * 		OperandFactory::createDouble( std::string const & value ) con
 
 	if (number < std::numeric_limits<double>::min() || number > std::numeric_limits<double>::max())
 		LIMIT_EXCEEDED_EXCEPTION("Double value: " + value);
-	operand->value = value;
+	std::stringstream ss;
+	ss << number;
+	operand->value = ss.str();
 	return(operand);
 }
 

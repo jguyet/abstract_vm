@@ -148,3 +148,35 @@ inline void callUnknowVmOperationException(const std::string aMessage, const cha
    throw UnknowVmOperationException(stream.str());
 }
 // #############################################################################
+
+// FileNotFoundException #######################################################
+struct FileNotFoundException: public std::runtime_error
+{
+	FileNotFoundException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define FILE_NOT_FOUND_EXCEPTION(aMessage) callFileNotFoundException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callFileNotFoundException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.FileNotFoundException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw FileNotFoundException(stream.str());
+}
+// #############################################################################
+
+// NumberFormatException #######################################################
+struct NumberFormatException: public std::runtime_error
+{
+	NumberFormatException(const std::string& what_arg) : std::runtime_error(what_arg) {}
+};
+
+#define NUMBER_FORMAT_EXCEPTION(aMessage) callNumberFormatException(aMessage, __func__, __FILE__, __LINE__)
+
+inline void callNumberFormatException(const std::string aMessage, const char* funcName, const char* fileName, const std::size_t lineNumber)
+{
+   std::ostringstream stream;
+   stream << ERROR_COLOR << "AbstractVmExceptions.NumberFormatException: " << aMessage << std::endl << "at " << fileName << "(" << funcName << ":" << lineNumber << ")" << RESET_COLOR << std::endl;
+   throw NumberFormatException(stream.str());
+}
+// #############################################################################

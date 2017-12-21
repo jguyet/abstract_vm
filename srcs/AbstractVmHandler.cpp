@@ -19,13 +19,17 @@ AbstractVmHandler::AbstractVmHandler ( void )
 	this->operationsMethods[VmOperation_pop] = &AbstractVmHandler::handleOperationPop;
 	this->operationsMethods[VmOperation_dump] = &AbstractVmHandler::handleOperationDump;
 	this->operationsMethods[VmOperation_assert] = &AbstractVmHandler::handleOperationAssert;
+	this->operationsMethods[VmOperation_print] = &AbstractVmHandler::handleOperationPrint;
+	this->operationsMethods[VmOperation_exit] = &AbstractVmHandler::handleOperationExit;
 	this->operationsMethods[VmOperation_add] = &AbstractVmHandler::handleOperationAdd;
 	this->operationsMethods[VmOperation_sub] = &AbstractVmHandler::handleOperationSub;
 	this->operationsMethods[VmOperation_mul] = &AbstractVmHandler::handleOperationMul;
 	this->operationsMethods[VmOperation_div] = &AbstractVmHandler::handleOperationDiv;
 	this->operationsMethods[VmOperation_mod] = &AbstractVmHandler::handleOperationMod;
-	this->operationsMethods[VmOperation_print] = &AbstractVmHandler::handleOperationPrint;
-	this->operationsMethods[VmOperation_exit] = &AbstractVmHandler::handleOperationExit;
+	this->operationsMethods[VmOperation_mov] = &AbstractVmHandler::handleOperationMov;
+	this->operationsMethods[VmOperation_copy] = &AbstractVmHandler::handleOperationCopy;
+	this->operationsMethods[VmOperation_inc] = &AbstractVmHandler::handleOperationInc;
+	this->operationsMethods[VmOperation_dec] = &AbstractVmHandler::handleOperationDec;
 
 	this->pushOperationsMapKey["INT8"] = t_Int8;
 	this->pushOperationsMapKey["INT16"] = t_Int16;
@@ -38,13 +42,17 @@ AbstractVmHandler::AbstractVmHandler ( void )
 	this->operationsMapKey["POP"] = VmOperation_pop;
 	this->operationsMapKey["DUMP"] = VmOperation_dump;
 	this->operationsMapKey["ASSERT"] = VmOperation_assert;
+	this->operationsMapKey["PRINT"] = VmOperation_print;
+	this->operationsMapKey["EXIT"] = VmOperation_exit;
 	this->operationsMapKey["ADD"] = VmOperation_add;
 	this->operationsMapKey["SUB"] = VmOperation_sub;
 	this->operationsMapKey["MUL"] = VmOperation_mul;
 	this->operationsMapKey["DIV"] = VmOperation_div;
 	this->operationsMapKey["MOD"] = VmOperation_mod;
-	this->operationsMapKey["PRINT"] = VmOperation_print;
-	this->operationsMapKey["EXIT"] = VmOperation_exit;
+	this->operationsMapKey["MOV"] = VmOperation_mov;
+	this->operationsMapKey["COPY"] = VmOperation_copy;
+	this->operationsMapKey["INC"] = VmOperation_inc;
+	this->operationsMapKey["DEC"] = VmOperation_dec;
 	return ;
 }
 
@@ -110,16 +118,25 @@ void						AbstractVmHandler::handleOperationPush(std::string const & value)
 	type = this->pushOperationsMapKey.at(upper_pus_op);
 	if (std::regex_search(value, base_match, value_regex) == false || base_match.size() != 2)
 		SYNTAX_EXCEPTION("Syntax error on \"push " + value + "\"");
-
+	if (is_numeric(base_match.str(1)) == false)
+		NUMBER_FORMAT_EXCEPTION("Error number format : " + value);
 	this->stack.push(OperandFactory::Singleton().createOperand(type, base_match.str(1)));
 }
 
 void						AbstractVmHandler::handleOperationPop(std::string const & value)
 {
-	(void)value;
+	size_t					number;
+
 	if (this->stack.size() == 0)
 		STACK_EMPTY_EXCEPTION("stack size : 0");
-	this->stack.pop();//Remove top element
+	if (is_numeric(value) == false)
+		number = 1;
+	else
+		number = std::stoi(value);
+	if (number > this->stack.size())
+		STACK_TO_SMALL_EXCEPTION("stack size < " + value);
+	for (unsigned int i = 0; i < number; i++)
+		this->stack.pop();//Remove top element
 }
 
 std::ostream &				operator<<(std::ostream & o, std::stack<const IOperand *> i)
@@ -164,10 +181,12 @@ void						AbstractVmHandler::handleOperationAssert(std::string const & value)
 	if (std::regex_search(value, base_match, value_regex) == false || base_match.size() != 2)
 		SYNTAX_EXCEPTION("Syntax error on \"assert " + value + "\"");
 	number = base_match.str(1);
+	if (is_numeric(number) == false)
+		NUMBER_FORMAT_EXCEPTION("Error number format : " + value);
 
 	if (type != it->getType() || number != it->toString())
 	{
-		INVALID_ASSERT_EXCEPTION("Assert invalid : " + number + " != " + it->toString());
+		INVALID_ASSERT_EXCEPTION("Assert invalid : " + number + " != " + it->toString() + " or type not equals");
 	}
 }
 
@@ -254,6 +273,69 @@ void						AbstractVmHandler::handleOperationMod(std::string const & value)
 	this->stack.pop();
 	result = *first % *second;
 	this->stack.push(result);
+}
+
+void						AbstractVmHandler::handleOperationMov(std::string const & value)
+{
+	std::list<IOperand const *>	lst;
+	IOperand const				*mover;
+	size_t						number;
+
+	if (this->stack.size() < 2)
+		STACK_TO_SMALL_EXCEPTION("stack size < 2");
+	if (is_numeric(value) == false)
+		NUMBER_FORMAT_EXCEPTION("Error number format : " + value);
+	number = std::stoi(value);
+	if (number > this->stack.size() - 1)
+		STACK_TO_SMALL_EXCEPTION("stack size < " + value);
+	mover = this->stack.top();
+	this->stack.pop();
+	for (int i = 0; i < (int)number; i++)
+	{
+		lst.push_front(this->stack.top());
+		this->stack.pop();
+	}
+	this->stack.push(mover);
+	for (int i = 0; i < (int)number; i++)
+	{
+		this->stack.push(lst.front());
+		lst.pop_front();
+	}
+}
+
+void						AbstractVmHandler::handleOperationCopy(std::string const & value)
+{
+	(void)value;
+	if (this->stack.size() == 0)
+		STACK_EMPTY_EXCEPTION("stack size : 0");
+	IOperand const *it = this->stack.top();
+	this->stack.push(OperandFactory::Singleton().createOperand(it->getType(), it->toString()));
+}
+
+void						AbstractVmHandler::handleOperationInc(std::string const & value)
+{
+	(void)value;
+	if (this->stack.size() == 0)
+		STACK_EMPTY_EXCEPTION("stack size : 0");
+	IOperand const *it = this->stack.top();
+	IOperand const *one = OperandFactory::Singleton().createOperand(t_Int8, "1");
+	IOperand const *number;
+	this->stack.pop();
+	number = *it + *one;
+	this->stack.push(number);
+}
+
+void						AbstractVmHandler::handleOperationDec(std::string const & value)
+{
+	(void)value;
+	if (this->stack.size() == 0)
+		STACK_EMPTY_EXCEPTION("stack size : 0");
+	IOperand const *it = this->stack.top();
+	IOperand const *one = OperandFactory::Singleton().createOperand(t_Int8, "1");
+	IOperand const *number;
+	this->stack.pop();
+	number = *it - *one;
+	this->stack.push(number);
 }
 
 void						AbstractVmHandler::handleOperationPrint(std::string const & value)

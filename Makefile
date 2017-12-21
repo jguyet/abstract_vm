@@ -30,7 +30,7 @@ FLAGS		=	-Wall -Wextra -Werror -std=c++11
 
 OBJDIR		=	.objs/
 
-INCDIR		=	srcs/
+INCDIR		=	includes/
 
 SRCSPROG1	=	\
 				srcs/main.cpp																\
@@ -43,8 +43,9 @@ SRCSPROG1	=	\
 				srcs/OperandFactory.cpp														\
 				srcs/AbstractVmHandler.cpp													\
 				srcs/AbstractVmParser.cpp													\
-				srcs/split.cpp																\
-				srcs/strtoupper.cpp
+				srcs/utils/split.cpp														\
+				srcs/utils/is_numeric.cpp													\
+				srcs/utils/strtoupper.cpp
 
 
 OBJSPROG1	=	$(addprefix $(OBJDIR), $(SRCSPROG1:.$(PROJECT_TYPE)=.o))

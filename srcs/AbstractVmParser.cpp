@@ -6,15 +6,24 @@
 
 // CANONICAL #####################################################
 
-AbstractVmParser::AbstractVmParser ( std::string const & cmds )
-{
-	this->cmds = cmds;
-	return ;
-}
-
 AbstractVmParser::AbstractVmParser ( void )
 {
 	this->cmds = "";
+	this->error_flag = false;
+	return ;
+}
+
+AbstractVmParser::AbstractVmParser ( std::string const & cmds )
+{
+	this->cmds = cmds;
+	this->error_flag = false;
+	return ;
+}
+
+AbstractVmParser::AbstractVmParser ( std::string const & cmds, bool const error_flag )
+{
+	this->cmds = cmds;
+	this->error_flag = error_flag;
 	return ;
 }
 
@@ -55,24 +64,25 @@ void							AbstractVmParser::parseCmds( void )
 	for (std::vector<std::string>::iterator it = ss.begin(); it != ss.end(); it++)
 	{
 		std::vector<std::string> scomments = split(*it, ';');
-
 		if (scomments.size() == 0 || scomments.at(0)[0] == ';')
 			continue ;
 		std::vector<std::string> ss = split(scomments.at(0), ' ');
-
 		if (ss.size() == 0)
 			continue ;
+		std::string command = ss.at(0);
+		std::string str = scomments.at(0).substr(command.length());
+
+		command.erase(std::remove(std::begin(command), std::end(command), ' '), std::end(command));
+		str.erase(std::remove(std::begin(str), std::end(str), ' '), std::end(str));
 		try
 		{
-			if (ss.size() > 1)
-				AbstractVmHandler::Singleton().handleVmOperation(ss.at(0), ss.at(1));
-			else
-				AbstractVmHandler::Singleton().handleVmOperation(ss.at(0), "");
-
+			AbstractVmHandler::Singleton().handleVmOperation(command, str);
 		} catch (std::exception &e)
 		{
 			std::cout << e.what();
-			return ;
+			if (this->error_flag == false)
+				return ;
+			std::cout << "\033[33m--force enabled the execution of the program continues\033[00m" << std::endl;
 		}
 	}
 	NO_EXIT_INSTRUCTION_EXCEPTION("No exit instruction received in program");

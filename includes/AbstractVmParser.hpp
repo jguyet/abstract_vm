@@ -12,8 +12,9 @@ class AbstractVmParser
 {
 	public:
 		// Default complaient form #########################
-											AbstractVmParser( std::string const & cmds );
 											AbstractVmParser( void );
+											AbstractVmParser( std::string const & cmds );
+											AbstractVmParser ( std::string const & cmds, bool const error_flag );
 											AbstractVmParser( AbstractVmParser const & src );
 		virtual 							~AbstractVmParser( void );
 
@@ -21,9 +22,15 @@ class AbstractVmParser
 		friend std::ostream &				operator<<(std::ostream & o, AbstractVmParser const & i);
 		// #################################################
 
+		// Public methods ##################################
 		void								parseCmds( void );
+		// #################################################
+
 	private:
+		// private vars ####################################
 		std::string							cmds;
+		bool								error_flag;
+		// #################################################
 };
 
 #endif

@@ -44,6 +44,10 @@ class AbstractVmHandler
 		void							handleOperationMod(std::string const & value);
 		void							handleOperationPrint(std::string const & value);
 		void							handleOperationExit(std::string const & value);
+		void							handleOperationMov(std::string const & value);
+		void							handleOperationCopy(std::string const & value);
+		void							handleOperationInc(std::string const & value);
+		void							handleOperationDec(std::string const & value);
 		// #################################################
 
 		// typedef of methods handler pointers #############
@@ -54,7 +58,7 @@ class AbstractVmHandler
 		VmOperationMethods							operationsMethods[eVmOperationType_max];
 		// #################################################
 
-		// private vars ###################################
+		// private vars ####################################
 		std::map<std::string, eVmOperationType>		operationsMapKey;
 		std::map<std::string, eOperandType>			pushOperationsMapKey;
 		std::stack<IOperand const*>					stack;
